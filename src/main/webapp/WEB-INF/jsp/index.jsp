@@ -67,7 +67,7 @@
 			        </div>
 			        <h2>Ricerca Satellite</h2>
 			        <p>Ricerca Tra tutti i satelliti del mondo! Da quelli Russi a Quelli Americani</p>
-			        <a href="satellite/list" class="icon-link">
+			        <a href="${pageContext.request.contextPath}/satellite/list" class="icon-link">
 			          Vai alla funzionalità
 			          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>
 			        </a>
