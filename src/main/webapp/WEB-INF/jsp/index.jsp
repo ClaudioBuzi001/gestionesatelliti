@@ -55,7 +55,8 @@
 				        <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/satellite/search">Vai a Ricerca</a>
 				        <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/satellite/lanciati">Visualizza i satelliti lanciati da piu di due anni</a>
 				        <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/satellite/disattivatiMaMaiRientrati">Visualizza i satelliti Disattivati mai piu rientrati</a>
-				      	
+				      	<br><br>
+				      	<a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/satellite/inOrbitaDaDieciAnni">Visualizza i satelliti in orbita da 10 Anni e ora Fissi</a>
 				      </div>
 			    </div>
 			    

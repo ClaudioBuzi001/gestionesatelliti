@@ -29,4 +29,6 @@ public interface SatelliteService {
 	public List<Satellite> trovaLanciatiDaPiuDiDueAnniENonDisattivati(Date data, StatoSatellite statoDisattivato); 
 	
 	public List<Satellite> trovaDisattivatiMaMaiRientrati(StatoSatellite statoDisattivato);
+	
+	public List<Satellite> trovaInOrbitaDaDieciAnniEFissi(Date data, StatoSatellite statoFisso);
 }

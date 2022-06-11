@@ -224,4 +224,22 @@ public class SatelliteController {
 		return "satellite/list";
 	}
 
+	@GetMapping("/inOrbitaDaDieciAnni")
+	public String inOrbitaDaDieciAnni(ModelMap model) throws ParseException {
+
+		List<Satellite> results = satelliteService.trovaInOrbitaDaDieciAnniEFissi(
+				new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2012"), StatoSatellite.FISSO);
+		model.addAttribute("satellite_list_attribute", results);
+
+		return "satellite/list";
+	}
 }
+
+
+
+
+
+
+
+
+

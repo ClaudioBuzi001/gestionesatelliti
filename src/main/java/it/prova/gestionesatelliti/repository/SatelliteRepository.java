@@ -16,4 +16,6 @@ public interface SatelliteRepository extends CrudRepository<Satellite, Long>, Jp
 	
 	List<Satellite> findByStatoAndDataRientroIsNull(StatoSatellite statoDisattivato);
 	
+	List<Satellite> findByDataLancioBeforeAndStato(Date data, StatoSatellite statoFisso);
+	
 }
