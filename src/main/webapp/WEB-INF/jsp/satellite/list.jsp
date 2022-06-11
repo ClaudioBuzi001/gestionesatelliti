@@ -66,9 +66,19 @@
 											<td>
 												<a class="btn  btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/satellite/show/${satelliteItem.id}">Visualizza</a>
 												<a class="btn  btn-sm btn-outline-primary ml-2 mr-2" href="${pageContext.request.contextPath}/satellite/edit/${satelliteItem.id}">Edit</a>
+												
 												<c:if test="${satelliteItem.stato == null || satelliteItem.stato == 'DISATTIVATO'}">
-												<a class="btn btn-outline-danger btn-sm" href="${pageContext.request.contextPath}/satellite/delete/${satelliteItem.id}">Delete</a>
+													<a class="btn btn-outline-danger btn-sm" href="${pageContext.request.contextPath}/satellite/delete/${satelliteItem.id}">Delete</a>
 												</c:if>
+												
+												<c:if test="${satelliteItem.dataLancio == null}">
+													<a class="btn btn-sm btn-outline-success ml-2 mr-3" href="${pageContext.request.contextPath}/satellite/lancio/${satelliteItem.id}">Lancio</a>
+												</c:if>
+												
+												<c:if test="${satelliteItem.dataRientro == null && satelliteItem.dataLancio != null}">
+													<a class="btn btn-sm btn-outline-dark ml-2 mr-3" href="${pageContext.request.contextPath}/satellite/rientro/${satelliteItem.id}">rientro</a>
+												</c:if>
+											
 											</td>
 										</tr>
 									</c:forEach>

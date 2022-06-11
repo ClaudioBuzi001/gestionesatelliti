@@ -186,6 +186,23 @@ public class SatelliteController {
 		
 		return "satellite/list";
 	}
+	
+	
+	@GetMapping("/lancio/{idSatellite}")
+	public String lancio(@PathVariable(required = true) Long idSatellite, RedirectAttributes redirectAttrs) {
+		satelliteService.settaDataLancioAdOggi(idSatellite);
+		
+		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
+		return "redirect:/satellite/listAll";
+	}
+	
+	@GetMapping("/rientro/{idSatellite}")
+	public String rientro(@PathVariable(required = true) Long idSatellite, RedirectAttributes redirectAttrs) {
+		satelliteService.settaDataRientroAdOggi(idSatellite);
+		
+		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
+		return "redirect:/satellite/listAll";
+	}
 }
 
 

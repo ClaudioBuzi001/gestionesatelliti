@@ -19,4 +19,8 @@ public interface SatelliteService {
 	public List<Satellite> findByExample(Satellite example);
 	
 	public void rimuoviById(Long idSatellite);
+	
+	public void settaDataLancioAdOggi(Long idSatellite);
+	
+	public void settaDataRientroAdOggi(Long idSatellite);
 }
