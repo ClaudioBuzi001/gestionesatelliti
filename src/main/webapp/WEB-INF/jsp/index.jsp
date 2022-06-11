@@ -53,8 +53,10 @@
 				        <h1 class="display-5 fw-bold">Benvenuto alla Gestione Satelliti</h1>
 				        <p class="col-md-8 fs-4">Ricerca Tra Milioni di Satelliti sulla Terra e non!! </p>
 				        <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/satellite/search">Vai a Ricerca</a>
+				        <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/satellite/lanciati">Visualizza i satelliti lanciati da piu di due anni</a>
 				      </div>
 			    </div>
+			    
 			    
 			  </div>
 			  

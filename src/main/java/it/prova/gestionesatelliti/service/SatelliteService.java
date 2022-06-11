@@ -1,8 +1,10 @@
 package it.prova.gestionesatelliti.service;
 
+import java.util.Date;
 import java.util.List;
 
 import it.prova.gestionesatelliti.model.Satellite;
+import it.prova.gestionesatelliti.model.StatoSatellite;
 
 
 public interface SatelliteService {
@@ -23,4 +25,6 @@ public interface SatelliteService {
 	public void settaDataLancioAdOggi(Long idSatellite);
 	
 	public void settaDataRientroAdOggi(Long idSatellite);
+	
+	public List<Satellite> trovaLanciatiDaPiuDiDueAnniENonDisattivati(Date data, StatoSatellite statoDisattivato); 
 }

@@ -1,5 +1,7 @@
 package it.prova.gestionesatelliti.web.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -203,6 +205,18 @@ public class SatelliteController {
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
 		return "redirect:/satellite/listAll";
 	}
+	
+	@GetMapping("/lanciati")
+	public String lanciatiDaPiuDiDueAnni( ModelMap model) throws ParseException {
+		
+		List<Satellite> results = satelliteService.trovaLanciatiDaPiuDiDueAnniENonDisattivati(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2020"), StatoSatellite.DISATTIVATO);
+		model.addAttribute("satellite_list_attribute", results);
+		
+		return "satellite/list";
+		
+	}
+	
+	
 }
 
 

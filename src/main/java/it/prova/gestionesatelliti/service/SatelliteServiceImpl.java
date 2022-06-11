@@ -86,6 +86,7 @@ public class SatelliteServiceImpl implements SatelliteService {
 	}
 
 	@Override
+	@Transactional
 	public void settaDataLancioAdOggi(Long idSatellite) {
 		Satellite result = satelliteRepository.findById(idSatellite).orElseThrow();
 		result.setDataLancio(new Date());
@@ -95,12 +96,19 @@ public class SatelliteServiceImpl implements SatelliteService {
 	}
 
 	@Override
+	@Transactional
 	public void settaDataRientroAdOggi(Long idSatellite) {
 		Satellite result = satelliteRepository.findById(idSatellite).orElseThrow();
 		result.setDataRientro(new Date());
 		result.setStato(StatoSatellite.DISATTIVATO);
 
 		satelliteRepository.save(result);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Satellite> trovaLanciatiDaPiuDiDueAnniENonDisattivati(Date data, StatoSatellite statoDisattivato) {
+		return satelliteRepository.findByDataLancioBeforeAndStatoNot(data, statoDisattivato);
 	}
 
 }
