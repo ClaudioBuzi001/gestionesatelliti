@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -85,11 +86,29 @@ public class SatelliteController {
 	}
 
 	
-//	/show/${satelliteItem.id}
 	@GetMapping("/show/{idSatellite}")
 	public String show(@PathVariable(required = true) Long idSatellite, Model model) {
 		model.addAttribute("show_satellite_attr", satelliteService.caricaSingoloElemento(idSatellite));
 		return "satellite/show";
+	}
+	
+	
+	//Delete e remove
+	
+	@GetMapping("/delete/{idSatellite}")
+	public String delete(@PathVariable(required = true) Long idSatellite, Model model) {
+		model.addAttribute("delete_satellite_attr", satelliteService.caricaSingoloElemento(idSatellite));
+		return "satellite/delete";
+	}
+	
+	
+	@PostMapping("/remove")
+	public String remove(@RequestParam(required = true) Long idSatellite, RedirectAttributes redirectAttrs) {
+		
+		satelliteService.rimuoviById(idSatellite);
+		
+		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
+		return "redirect:/satellite/listAll";
 	}
 	
 }
