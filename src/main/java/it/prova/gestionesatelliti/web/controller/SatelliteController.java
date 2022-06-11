@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import it.prova.gestionesatelliti.model.Satellite;
+import it.prova.gestionesatelliti.model.StatoSatellite;
 import it.prova.gestionesatelliti.service.SatelliteService;
 
 @Controller
@@ -49,8 +50,30 @@ public class SatelliteController {
 		if (result.hasErrors())
 			return "satellite/insert";
 		
-		//Se la data 
+		//Se la data di atterraggio c è e 
+//		data lancio > data rientro
+//		usare rejectValue
+//
+//		2)Se io imposto in movimento o fisso, la data rientro deve essere a null
+//		
+//		3)Se imposto disattivato la data di rientro != da null
+		
+		if(satellite.getDataLancio() != null && satellite.getDataRientro() != null && satellite.getDataLancio().after(satellite.getDataRientro())) {
+			result.rejectValue("dataLancio", "", "Errore, data lancio dopo la data di rientro,Per favore inserisci due date corrette");
+			return "satellite/insert";
+		}
+		
+		if(satellite.getStato() != null && satellite.getStato().equals(StatoSatellite.IN_MOVIMENTO) || satellite.getStato().equals(StatoSatellite.FISSO) && satellite.getDataRientro() != null) {
+			result.rejectValue("dataRientro", "", "Errore, La data rientro è stata inserita anche se il satellite è in movimento o fisso, Per favore non impostare la data di rientro se il satellite è ancora in orbita");
+			return "satellite/insert";
+		}
 
+		if(satellite.getStato() != null && satellite.getStato().equals(StatoSatellite.DISATTIVATO) && satellite.getDataRientro() == null) {
+			result.rejectValue("dataRientro", "", "Errore, la data Rientro non è stata impostata anche se il satellite è stato disattivato, Per favore inserisci la data di rientro dell satellite");
+			return "satellite/insert";
+		}
+			
+		
 		satelliteService.inserisciNuovo(satellite);
 
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
