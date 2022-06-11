@@ -78,7 +78,7 @@
 			        </div>
 			        <h2>Inserisci Nuovo Satellite</h2>
 			        <p>Inserisci un nuovo Satellite!</p>
-			        <a href="satellite/insert" class="icon-link">
+			        <a href="${pageContext.request.contextPath}/satellite/insert" class="icon-link">
 			          Vai alla funzionalità
 			          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>
 			        </a>

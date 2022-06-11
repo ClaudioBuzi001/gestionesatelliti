@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -50,20 +51,18 @@ public class SatelliteController {
 		if (result.hasErrors())
 			return "satellite/insert";
 		
-		//Se la data di atterraggio c è e 
-//		data lancio > data rientro
-//		usare rejectValue
-//
-//		2)Se io imposto in movimento o fisso, la data rientro deve essere a null
-//		
-//		3)Se imposto disattivato la data di rientro != da null
-		
+		//Controlli
 		if(satellite.getDataLancio() != null && satellite.getDataRientro() != null && satellite.getDataLancio().after(satellite.getDataRientro())) {
 			result.rejectValue("dataLancio", "", "Errore, data lancio dopo la data di rientro,Per favore inserisci due date corrette");
 			return "satellite/insert";
 		}
 		
-		if(satellite.getStato() != null && satellite.getStato().equals(StatoSatellite.IN_MOVIMENTO) || satellite.getStato().equals(StatoSatellite.FISSO) && satellite.getDataRientro() != null) {
+		if(satellite.getDataLancio() != null && satellite.getStato() == null) {
+			result.rejectValue("stato", "", "Errore, data lancio inserita ma è lo stato del satellite non è stato inserito,Per favore inserire lo stato del satellite");
+			return "satellite/insert";
+		}
+		
+		if(satellite.getStato() != null && (satellite.getStato().equals(StatoSatellite.IN_MOVIMENTO) || satellite.getStato().equals(StatoSatellite.FISSO)) && satellite.getDataRientro() != null) {
 			result.rejectValue("dataRientro", "", "Errore, La data rientro è stata inserita anche se il satellite è in movimento o fisso, Per favore non impostare la data di rientro se il satellite è ancora in orbita");
 			return "satellite/insert";
 		}
@@ -72,7 +71,12 @@ public class SatelliteController {
 			result.rejectValue("dataRientro", "", "Errore, la data Rientro non è stata impostata anche se il satellite è stato disattivato, Per favore inserisci la data di rientro dell satellite");
 			return "satellite/insert";
 		}
-			
+		
+		if(satellite.getDataLancio() == null && satellite.getDataRientro() != null) {
+			result.rejectValue("dataLancio", "", "Errore, data lancio Non inserita ma è stata inserita la data di rientro,Per favore inserisci due date corrette");
+			return "satellite/insert";
+		}
+		
 		
 		satelliteService.inserisciNuovo(satellite);
 
@@ -80,6 +84,13 @@ public class SatelliteController {
 		return "redirect:/satellite/listAll";
 	}
 
+	
+//	/show/${satelliteItem.id}
+	@GetMapping("/show/{idSatellite}")
+	public String show(@PathVariable(required = true) Long idSatellite, Model model) {
+		model.addAttribute("show_satellite_attr", satelliteService.caricaSingoloElemento(idSatellite));
+		return "satellite/show";
+	}
 	
 }
 
