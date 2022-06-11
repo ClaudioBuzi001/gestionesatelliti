@@ -54,6 +54,8 @@
 				        <p class="col-md-8 fs-4">Ricerca Tra Milioni di Satelliti sulla Terra e non!! </p>
 				        <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/satellite/search">Vai a Ricerca</a>
 				        <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/satellite/lanciati">Visualizza i satelliti lanciati da piu di due anni</a>
+				        <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/satellite/disattivatiMaMaiRientrati">Visualizza i satelliti Disattivati mai piu rientrati</a>
+				      	
 				      </div>
 			    </div>
 			    

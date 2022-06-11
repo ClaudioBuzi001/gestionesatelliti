@@ -14,4 +14,6 @@ public interface SatelliteRepository extends CrudRepository<Satellite, Long>, Jp
 //	o   Lanciati da più di due anni (fornisce una lista di satelliti lanciati da più di due anni che non sono disattivati);
 	List<Satellite> findByDataLancioBeforeAndStatoNot(Date data, StatoSatellite statoDisattivato);
 	
+	List<Satellite> findByStatoAndDataRientroIsNull(StatoSatellite statoDisattivato);
+	
 }

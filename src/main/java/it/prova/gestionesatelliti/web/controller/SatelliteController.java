@@ -175,7 +175,7 @@ public class SatelliteController {
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
 		return "redirect:/satellite/listAll";
 	}
-	
+
 	@GetMapping("/search")
 	public String search() {
 		return "satellite/search";
@@ -185,62 +185,43 @@ public class SatelliteController {
 	public String listByExample(Satellite example, ModelMap model) {
 		List<Satellite> results = satelliteService.findByExample(example);
 		model.addAttribute("satellite_list_attribute", results);
-		
+
 		return "satellite/list";
 	}
-	
-	
+
 	@GetMapping("/lancio/{idSatellite}")
 	public String lancio(@PathVariable(required = true) Long idSatellite, RedirectAttributes redirectAttrs) {
 		satelliteService.settaDataLancioAdOggi(idSatellite);
-		
+
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
 		return "redirect:/satellite/listAll";
 	}
-	
+
 	@GetMapping("/rientro/{idSatellite}")
 	public String rientro(@PathVariable(required = true) Long idSatellite, RedirectAttributes redirectAttrs) {
 		satelliteService.settaDataRientroAdOggi(idSatellite);
-		
+
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
 		return "redirect:/satellite/listAll";
 	}
-	
+
 	@GetMapping("/lanciati")
-	public String lanciatiDaPiuDiDueAnni( ModelMap model) throws ParseException {
-		
-		List<Satellite> results = satelliteService.trovaLanciatiDaPiuDiDueAnniENonDisattivati(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2020"), StatoSatellite.DISATTIVATO);
+	public String lanciatiDaPiuDiDueAnni(ModelMap model) throws ParseException {
+
+		List<Satellite> results = satelliteService.trovaLanciatiDaPiuDiDueAnniENonDisattivati(
+				new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2020"), StatoSatellite.DISATTIVATO);
 		model.addAttribute("satellite_list_attribute", results);
-		
+
 		return "satellite/list";
-		
 	}
-	
-	
+
+	@GetMapping("/disattivatiMaMaiRientrati")
+	public String disattivatiMaMaiRientrati(ModelMap model) {
+
+		List<Satellite> results = satelliteService.trovaDisattivatiMaMaiRientrati(StatoSatellite.DISATTIVATO);
+		model.addAttribute("satellite_list_attribute", results);
+
+		return "satellite/list";
+	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

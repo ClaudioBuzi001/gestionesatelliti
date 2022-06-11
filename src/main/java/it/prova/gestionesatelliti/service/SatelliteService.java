@@ -27,4 +27,6 @@ public interface SatelliteService {
 	public void settaDataRientroAdOggi(Long idSatellite);
 	
 	public List<Satellite> trovaLanciatiDaPiuDiDueAnniENonDisattivati(Date data, StatoSatellite statoDisattivato); 
+	
+	public List<Satellite> trovaDisattivatiMaMaiRientrati(StatoSatellite statoDisattivato);
 }

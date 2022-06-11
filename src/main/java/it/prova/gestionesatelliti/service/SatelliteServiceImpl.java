@@ -111,6 +111,12 @@ public class SatelliteServiceImpl implements SatelliteService {
 		return satelliteRepository.findByDataLancioBeforeAndStatoNot(data, statoDisattivato);
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public List<Satellite> trovaDisattivatiMaMaiRientrati(StatoSatellite statoDisattivato) {
+		return satelliteRepository.findByStatoAndDataRientroIsNull(statoDisattivato);
+	}
+
 }
 
 
