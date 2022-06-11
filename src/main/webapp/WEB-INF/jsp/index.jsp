@@ -51,8 +51,8 @@
 			     <div class="p-5 mb-4 bg-light rounded-3">
 				      <div class="container-fluid py-5">
 				        <h1 class="display-5 fw-bold">Benvenuto alla Gestione Satelliti</h1>
-				        <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. </p>
-				        <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/satellite/listAll">Vai a Ricerca</a>
+				        <p class="col-md-8 fs-4">Ricerca Tra Milioni di Satelliti sulla Terra e non!! </p>
+				        <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/satellite/search">Vai a Ricerca</a>
 				      </div>
 			    </div>
 			    
@@ -66,8 +66,8 @@
 			          <svg class="bi" width="1em" height="1em"><use xlink:href="#collection"/></svg>
 			        </div>
 			        <h2>Ricerca Satellite</h2>
-			        <p>Ricerca Tra tutti i satelliti del mondo! Da quelli Russi a Quelli Americani</p>
-			        <a href="${pageContext.request.contextPath}/satellite/list" class="icon-link">
+			        <p>Ricerca Tra tutti i satelliti del mondo! Da quelli Russi a Quelli Americani.</p>
+			        <a href="${pageContext.request.contextPath}/satellite/search" class="icon-link">
 			          Vai alla funzionalità
 			          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>
 			        </a>
