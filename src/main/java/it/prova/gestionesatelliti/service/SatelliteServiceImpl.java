@@ -9,22 +9,26 @@ import javax.persistence.criteria.Predicate;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import it.prova.gestionesatelliti.model.Satellite;
 import it.prova.gestionesatelliti.model.StatoSatellite;
 import it.prova.gestionesatelliti.repository.SatelliteRepository;
+
 @Service
 public class SatelliteServiceImpl implements SatelliteService {
-	
+
 	@Autowired
 	private SatelliteRepository satelliteRepository;
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<Satellite> listAllElements() {
-		return (List<Satellite>)satelliteRepository.findAll();
+		return (List<Satellite>) satelliteRepository.findAll();
 	}
 
 	@Override
@@ -59,7 +63,8 @@ public class SatelliteServiceImpl implements SatelliteService {
 			List<Predicate> predicates = new ArrayList<Predicate>();
 
 			if (StringUtils.isNotEmpty(example.getDenominazione()))
-				predicates.add(cb.like(cb.upper(root.get("denominazione")), "%" + example.getDenominazione().toUpperCase() + "%"));
+				predicates.add(cb.like(cb.upper(root.get("denominazione")),
+						"%" + example.getDenominazione().toUpperCase() + "%"));
 
 			if (StringUtils.isNotEmpty(example.getCodice()))
 				predicates.add(cb.like(cb.upper(root.get("codice")), "%" + example.getCodice().toUpperCase() + "%"));
@@ -69,7 +74,7 @@ public class SatelliteServiceImpl implements SatelliteService {
 
 			if (example.getDataLancio() != null)
 				predicates.add(cb.greaterThanOrEqualTo(root.get("dataLancio"), example.getDataLancio()));
-			
+
 			if (example.getDataRientro() != null)
 				predicates.add(cb.greaterThanOrEqualTo(root.get("dataRientro"), example.getDataRientro()));
 
@@ -88,21 +93,15 @@ public class SatelliteServiceImpl implements SatelliteService {
 	@Override
 	@Transactional
 	public void settaDataLancioAdOggi(Long idSatellite) {
-		Satellite result = satelliteRepository.findById(idSatellite).orElseThrow();
-		result.setDataLancio(new Date());
-		result.setStato(StatoSatellite.IN_MOVIMENTO);
-
-		satelliteRepository.save(result);
+		if (satelliteRepository.setDataLancioAdOggi(idSatellite, new Date(), StatoSatellite.IN_MOVIMENTO) != 1)
+			throw new RuntimeException("Errore, Impossibile Lanciare il satellite");
 	}
 
 	@Override
 	@Transactional
 	public void settaDataRientroAdOggi(Long idSatellite) {
-		Satellite result = satelliteRepository.findById(idSatellite).orElseThrow();
-		result.setDataRientro(new Date());
-		result.setStato(StatoSatellite.DISATTIVATO);
-
-		satelliteRepository.save(result);
+		if (satelliteRepository.settaDataRientroAdOggi(idSatellite, new Date(), StatoSatellite.DISATTIVATO) != 1)
+			throw new RuntimeException("Errore, Impossibile far rientrare il satelllite");
 	}
 
 	@Override
@@ -118,35 +117,9 @@ public class SatelliteServiceImpl implements SatelliteService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Satellite> trovaInOrbitaDaDieciAnniEFissi(Date data, StatoSatellite statoFisso) {
 		return satelliteRepository.findByDataLancioBeforeAndStato(data, statoFisso);
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -130,7 +130,6 @@ public class SatelliteController {
 		if (result.hasErrors())
 			return "satellite/edit";
 
-		// Controlli, Tutti quelli dell insert con anche il controllo sullo stato
 		if (satellite.getDataLancio() != null && satellite.getDataRientro() != null
 				&& satellite.getDataLancio().after(satellite.getDataRientro())) {
 			result.rejectValue("dataLancio", "",
@@ -234,12 +233,3 @@ public class SatelliteController {
 		return "satellite/list";
 	}
 }
-
-
-
-
-
-
-
-
-
